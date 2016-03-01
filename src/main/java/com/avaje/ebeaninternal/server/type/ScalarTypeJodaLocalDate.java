@@ -18,7 +18,7 @@ public class ScalarTypeJodaLocalDate extends ScalarTypeBaseDate<LocalDate> {
 
   @Override
   public long convertToMillis(LocalDate value) {
-    return value.toDateMidnight().getMillis();
+    return value.toDateTimeAtStartOfDay().getMillis();
   }
 
   @Override
@@ -28,13 +28,13 @@ public class ScalarTypeJodaLocalDate extends ScalarTypeBaseDate<LocalDate> {
 
   @Override
   public Date convertToDate(LocalDate t) {
-    return new java.sql.Date(t.toDateMidnight().getMillis());
+    return new java.sql.Date(t.toDateTimeAtStartOfDay().getMillis());
   }
 
   @Override
   public Object toJdbcType(Object value) {
     if (value instanceof LocalDate) {
-      return new java.sql.Date(((LocalDate) value).toDateMidnight().getMillis());
+      return new java.sql.Date(((LocalDate) value).toDateTimeAtStartOfDay().getMillis());
     }
     return BasicTypeConverter.toDate(value);
   }
